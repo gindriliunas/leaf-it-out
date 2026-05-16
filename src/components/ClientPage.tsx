@@ -863,6 +863,7 @@ function Gallery() {
               borderRadius: 18,
               overflow: "hidden",
               border: `1px solid ${BORDER}`,
+              minHeight: 300,
             }}
           >
             <Image
@@ -870,7 +871,7 @@ function Gallery() {
               alt={`${GALLERY[0].title} — Leaf It Out`}
               fill
               style={{ objectFit: "cover" }}
-              sizes="33vw"
+              sizes="(max-width:767px) 100vw, 33vw"
             />
             <div
               style={{
@@ -894,6 +895,7 @@ function Gallery() {
                 borderRadius: 14,
                 overflow: "hidden",
                 border: `1px solid ${BORDER}`,
+                minHeight: 240,
               }}
             >
               <Image
@@ -901,7 +903,7 @@ function Gallery() {
                 alt={`${title} — Leaf It Out landscaping`}
                 fill
                 style={{ objectFit: "cover" }}
-                sizes="22vw"
+                sizes="(max-width:767px) 100vw, 22vw"
               />
               <div
                 style={{
