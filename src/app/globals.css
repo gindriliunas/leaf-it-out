@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0a1f0a;
+  color: #e8f5e3;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── Hero entrance animations ── */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes float3d {
+  0%, 100% { transform: translateY(0px) rotateX(0deg); }
+  50%       { transform: translateY(-8px) rotateX(4deg); }
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.hero-eyebrow { animation: heroFadeUp 0.6s ease forwards; animation-delay: 0.1s; opacity: 0; }
+.hero-h1      { animation: heroFadeUp 0.75s ease forwards; animation-delay: 0.3s; opacity: 0; }
+.hero-sub     { animation: heroFadeUp 0.7s ease forwards; animation-delay: 0.5s; opacity: 0; }
+.hero-cta     { animation: heroFadeUp 0.6s ease forwards; animation-delay: 0.65s; opacity: 0; }
+.hero-stats   { animation: heroFadeUp 0.6s ease forwards; animation-delay: 0.8s; opacity: 0; }
+.hero-photos  { animation: heroFadeUp 0.8s ease forwards; animation-delay: 0.4s; opacity: 0; }
+
+.float-3d { animation: float3d 4s ease-in-out infinite; }
+
+/* ── Responsive grid classes ── */
+.hero-grid     { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 96px 24px 80px; }
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.three-col-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.four-col-grid  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stats-grid    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.area-grid     { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px 24px; }
+.contact-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.gallery-grid  { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; gap: 12px; }
+
+.nav-desktop-links { display: flex; align-items: center; gap: 32px; }
+.nav-desktop-phone { display: flex; align-items: center; gap: 12px; }
+.hamburger-btn     { display: none; }
+
+/* ── Tilt card effect ── */
+.tilt-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(-3deg) translateY(-6px) scale(1.02);
+  box-shadow: 0 24px 64px rgba(107, 191, 62, 0.18);
+}
+
+/* ── FAQ accordion ── */
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+details[open] summary .faq-icon { transform: rotate(45deg); }
+.faq-icon { transition: transform 0.3s ease; display: inline-block; }
+
+/* ── Section reveal utility ── */
+.reveal-up { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a1f0a; }
+::-webkit-scrollbar-thumb { background: #3d7a28; border-radius: 3px; }
+
+@media (max-width: 767px) {
+  .hero-grid     { grid-template-columns: 1fr; gap: 0; padding: 88px 20px 56px; }
+  .hero-photos   { display: none !important; }
+  .services-grid { grid-template-columns: 1fr; }
+  .three-col-grid { grid-template-columns: 1fr !important; }
+  .four-col-grid  { grid-template-columns: 1fr 1fr !important; }
+  .stats-grid    { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .area-grid     { grid-template-columns: 1fr 1fr; }
+  .contact-grid  { grid-template-columns: 1fr; gap: 32px; }
+  .gallery-grid  { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
+  .gallery-grid > div:first-child { grid-row: auto !important; }
+  .nav-desktop-links, .nav-desktop-phone { display: none !important; }
+  .hamburger-btn { display: flex !important; align-items: center; justify-content: center; }
+}
+
+@media (min-width: 768px) {
+  .nav-desktop-links, .nav-desktop-phone { display: flex !important; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .three-col-grid { grid-template-columns: 1fr 1fr !important; }
+  .four-col-grid  { grid-template-columns: 1fr 1fr !important; }
+  .area-grid      { grid-template-columns: repeat(3, 1fr); }
+}
