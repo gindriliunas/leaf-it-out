@@ -1437,6 +1437,202 @@ function Reviews() {
   );
 }
 
+interface PartnerAd {
+  id: number;
+  businessName: string;
+  description: string;
+  logoUrl?: string;
+  visitUrl: string;
+}
+
+function Partners() {
+  const [ads, setAds] = useState<PartnerAd[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    fetch("https://www.viv-z.com/api/ads")
+      .then((response) => response.json())
+      .then((data: PartnerAd[]) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setAds(data);
+        }
+      })
+      .catch(() => {
+        setHasError(true);
+      })
+      .finally(() => setLoaded(true));
+  }, []);
+
+  const trackClick = (id: number) => {
+    try {
+      fetch("https://www.viv-z.com/api/ads/click", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: String(id) }),
+        keepalive: true,
+      });
+    } catch (error) {
+      // ignore tracking failures
+    }
+  };
+
+  const displayAds = Array.from({ length: 4 }, (_, index) => ads[index] ?? null);
+
+  return (
+    <section
+      id="partners"
+      style={{
+        background: "#0f2d14",
+        padding: "clamp(56px, 9vw, 96px) 24px",
+        borderTop: `1px solid rgba(107,191,62,0.18)`,
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 42 }}>
+          <div
+            style={{
+              display: "inline-block",
+              borderRadius: 100,
+              padding: "6px 18px",
+              fontSize: 12,
+              fontWeight: 700,
+              color: "#a8d4a0",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              border: `1px solid rgba(107,191,62,0.18)`,
+              marginBottom: 16,
+            }}
+          >
+            Trusted Partners
+          </div>
+          <h2
+            style={{
+              fontSize: "clamp(1.7rem, 4vw, 2.8rem)",
+              fontWeight: 800,
+              color: "#fff",
+              letterSpacing: "-0.02em",
+              marginBottom: 14,
+            }}
+          >
+            Partners we proudly showcase
+          </h2>
+          <p style={{ color: "#a8d4a0", maxWidth: 700, margin: "0 auto", fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)", lineHeight: 1.75 }}>
+            We partner with local businesses who share our commitment to quality, trust and value. Explore the companies we recommend.
+          </p>
+        </div>
+
+        {loaded && ads.length === 0 ? (
+          <div
+            style={{
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: 20,
+              padding: 28,
+              color: "#c8e8c0",
+              textAlign: "center",
+              maxWidth: 780,
+              margin: "0 auto",
+            }}
+          >
+            <p style={{ marginBottom: 12, fontSize: 16, color: "#fff" }}>
+              Partners content is on its way.
+            </p>
+            <p style={{ margin: 0 }}>
+              The partner directory is loading from the external feed. If it doesn’t appear, the source may be blocked by your browser or network.
+            </p>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, minmax(260px, 1fr))",
+              gap: 24,
+            }}
+          >
+            {displayAds.map((ad, index) => (
+              <div
+                key={index}
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 20,
+                  padding: 26,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 16,
+                  minHeight: 260,
+                  textAlign: "center",
+                }}
+              >
+                {ad ? (
+                  <div style={{ display: "flex", justifyContent: "center", minHeight: 100, alignItems: "center", width: "100%" }}>
+                    <img
+                      src={ad.logoUrl || ""}
+                      alt={ad.businessName}
+                      style={{ height: 84, objectFit: "contain", maxWidth: "80%" }}
+                    />
+                  </div>
+                ) : (
+                  <div style={{ minHeight: 100 }} />
+                )}
+
+                {ad ? (
+                  <>
+                    <p style={{ color: "#c8e8c0", fontSize: 14, lineHeight: 1.75, flex: 1 }}>{ad.description}</p>
+                    <a
+                      href={ad.visitUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackClick(ad.id)}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 8,
+                        borderRadius: 10,
+                        background: G,
+                        color: "#fff",
+                        fontSize: 14,
+                        fontWeight: 700,
+                        padding: "12px 18px",
+                        textDecoration: "none",
+                        transition: "opacity 0.2s",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.92")}
+                      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+                    >
+                      Visit ↗
+                    </a>
+                  </>
+                ) : (
+                  <div
+                    style={{
+                      height: 120,
+                      borderRadius: 16,
+                      border: "1px dashed rgba(255,255,255,0.12)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#9bb98e",
+                      fontSize: 13,
+                      textAlign: "center",
+                      padding: 14,
+                    }}
+                  >
+                    More partners will appear here when the feed is available.
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   return (
     <section
@@ -2085,6 +2281,7 @@ export default function ClientPage() {
       <About />
       <ServiceAreas />
       <Reviews />
+      <Partners />
       <Contact />
       <FAQ />
       <FinalCTA />
