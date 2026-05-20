@@ -80,6 +80,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `fetch('https://www.viv-z.com/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({s:'1ceb200d-6d8a-4771-aadd-3c2f04ff4a19',p:location.pathname,r:document.referrer}),keepalive:true});`,
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
