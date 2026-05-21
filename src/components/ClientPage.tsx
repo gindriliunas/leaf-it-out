@@ -556,9 +556,8 @@ function Hero() {
 
         {/* Stats bar */}
         <div
-          className="hero-stats"
+          className="hero-stats hero-stats-bar"
           style={{
-            display: "flex",
             justifyContent: "center",
             gap: 0,
             background: "rgba(255,255,255,0.05)",
