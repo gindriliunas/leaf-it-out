@@ -1542,13 +1542,7 @@ function Partners() {
             </p>
           </div>
         ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, minmax(260px, 1fr))",
-              gap: 24,
-            }}
-          >
+          <div className="four-col-grid" style={{ gap: 24 }}>
             {displayAds.map((ad, index) => (
               <div
                 key={index}
