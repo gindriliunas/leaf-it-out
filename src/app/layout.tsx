@@ -57,6 +57,7 @@ const jsonLd = {
   areaServed: [
     "Chatham", "Rochester", "Gillingham", "Maidstone", "Sittingbourne",
     "Faversham", "Canterbury", "Tonbridge", "Sevenoaks", "Gravesend",
+    "Surrey", "Essex",
   ],
   description:
     "Family run landscaping business with 15+ years experience. Specialising in driveways, patios and garden landscaping across Medway and Kent.",

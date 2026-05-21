@@ -141,6 +141,7 @@ const AREAS = [
   "Maidstone", "Faversham", "Canterbury", "Tonbridge", "Sevenoaks",
   "Gravesend", "Dartford", "Swanley", "Snodland", "Aylesford",
   "Strood", "Hoo", "Medway City", "West Malling", "Bearsted",
+  "Surrey", "Essex",
 ];
 
 const FAQ_ITEMS = [
@@ -158,7 +159,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What areas do you cover?",
-    a: "We cover the whole of Medway and most of Kent, including Chatham, Rochester, Gillingham, Maidstone, Sittingbourne, Canterbury and surrounding towns. If you're unsure, just give us a call.",
+    a: "We cover the whole of Medway, Kent, Surrey and Essex, including Chatham, Rochester, Gillingham, Maidstone, Sittingbourne, Canterbury and surrounding areas. If you're unsure, just give us a call.",
   },
   {
     q: "Do I need planning permission for a new driveway or patio?",
